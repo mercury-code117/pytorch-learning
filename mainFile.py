@@ -1,3 +1,5 @@
+# Tutorial being followed: https://www.youtube.com/watch?v=V_xro1bcAuA&t=2598s
+
 import torch
 import pandas as pd
 import numpy as np
