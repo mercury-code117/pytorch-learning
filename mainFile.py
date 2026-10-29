@@ -45,4 +45,6 @@ print(random_tensor.ndim)
 random_image_size_tensor = torch.rand(size=(3,224,224)) # Colour Channels (R,G,B), Height, Width
 print(random_image_size_tensor.shape, random_image_size_tensor.ndim)
 
-# Up to 1:46:13 in the PyTorch tutorial.
+# Zeroes and Ones
+zero = torch.zeros(size=(3,4))
+print(zero)
