@@ -103,3 +103,6 @@ tensorDiv = torch.div(tensor, 10) # Division
 # Two main ways to perform multiplication in neural networks and deep learning:
 # 1. Element-wise multiplication.
 # 2. Matrix multiplication (Dot product).
+
+# Element-wise multiplication
+print(tensor * tensor)
