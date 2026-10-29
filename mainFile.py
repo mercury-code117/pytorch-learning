@@ -106,3 +106,14 @@ tensorDiv = torch.div(tensor, 10) # Division
 
 # Element-wise multiplication
 print(tensor * tensor)
+
+# Matrix multiplication
+print(torch.matmul(tensor, tensor))
+
+val = 0
+for i in range(len(tensor)):
+  val += tensor[i] * tensor[i]
+print(val)
+
+# The two examples above is to showcase how an in-built torch function of mathmul() is able to achieve the result
+# at a faster time than what doing a for-loop is able to achieve. 
