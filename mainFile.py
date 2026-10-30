@@ -117,3 +117,32 @@ print(val)
 
 # The two examples above is to showcase how an in-built torch function of mathmul() is able to achieve the result
 # at a faster time than what doing a for-loop is able to achieve. 
+
+# Discussion of shape errors
+# 1. Inner dimensions MUST match 
+# Example:
+# (3x2) * (2x3) Won't work
+# (2x3) * (3x2) Will work
+#
+# 2. Resulting matrix has the shape of the outer dimensions
+# (2x3) * (3x2) -> (2x2)
+# (3x2) * (2x3) -> (3x3)
+
+# Shapes for Matrix Multiplication
+tensor_A = torch.tensor([[1,2],
+                         [3,4],
+                         [5,6]])
+
+tensor_B = torch.tensor([[7,10],
+                         [8,11],
+                         [9,12]])
+
+# torch.mm(tensor_A, tensor_B) # torch.mm == torch.matmul
+# The equation above will cause an error, due to both equations being 3x2, therefore not fulfilling the conditions
+# of matrix multiplication.
+
+# We will fix this by using transpose to switch the dimensions of one of the tensors.
+tensor_B.T # the .T will transpose and change the matrix from 3x2 to 2x3
+
+# Matrix multiplication will work now, because the inner components match, and therefore will become a 3x3 matrix.
+torch.mm(tensor_A, tensor_B.T)
