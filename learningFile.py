@@ -154,7 +154,7 @@ torch.min(), aggTensor.min() # Finding the minimum.
 
 torch.max(), aggTensor.max() # Finding the maximum.
 
-torch.mean(aggTensor.type(torch.float32)), x.type(torch.float32).mean() # Finding the mean (Needs to be converted from a long to a float32 because torch.mean doesn't work with long data types).
+torch.mean(aggTensor.type(torch.float32)), aggTensor.type(torch.float32).mean() # Finding the mean (Needs to be converted from a long to a float32 because torch.mean doesn't work with long data types).
 
 torch.sum(aggTensor), aggTensor.sum() # Find the sum.
 
@@ -178,3 +178,57 @@ newTensor = torch.arange(1, 10)
 
 newT_reshaped = newTensor.reshape(1,7) # This will fail due to trying to put 9 elements into 7.
 newT_reshaped = newTensor.reshape(3,3) # This will work because it uses all 9 elements, but makes them into a 3x3 matrix.
+
+# Change the view
+z = newTensor.view(1,9)
+z, z.shape
+# Changing z changes the newTensor (This is because a view of a tensor shares the same memory as the original).
+
+z[:,0] = 5
+z,newTensor
+# The first element of both z and newTensor changes, despite only z being the only one changed in the code.
+
+# Stack tensors on top of each other.
+newTensor_stacked = torch.stack([newTensor, newTensor, newTensor, newTensor], dim=0)
+# This application can only use dim=0 and dim=1, as dim=2 and onwards is not possible with newTensor's data.
+
+# Squeezing a tensor.
+newT_reshaped.shape
+newT_squeezed = newT_reshaped.squeeze()
+# This changes the shape from [1,9] to [9].
+
+# Unsqueeze adds a single dimension to a target tensor at a specific dim (you can decide in the function with the "dim=" section).
+newT_squeezed.unsqueeze
+
+# torch.permute: rearranges the dimensions of a target tensor in a specified order.
+x_original = torch.rand(size=(224,224,3)) # [height, width, colour_channels]
+
+# Permute original tensor to rearrange the axis (or dim) order.
+x_permuted = x_original.permute(2,0,1) # Shifts axis 0->1, 1->2, 2->0
+print(f"Previous shape: {x_original.shape}")
+print(f"Permuted shape: {x_permuted.shape}")
+
+# Indexing (selecting data from tensors)
+# Indexing with PyTorch is similar to indexing with NumPy.
+x = torch.arange(1,10).reshape(1,3,3)
+x, x.shape
+
+# Index with the new tensor
+x[0] # Provides the entire matrix (as there aren't multiple separate matrices in the tensor created). 
+# Let's index in the middle bracket (dim=1).
+x[0, 0] # Provides the first row.
+# Let's index on the most inner bracket (last dimension).
+x[0,0,0] # Provides the element of the first column and first row.
+
+# ":" can be used to select all from a target dimension.
+
+# Get all values of 0th and 1st dimensions, but only the index 1 of 2nd dimension
+x[:,:,1] # tensor([[2,5,8]])
+
+# Get all values of the 0th dimension, but only the 1 index value of 1st and 2nd dimension
+x[:,1,1] # tensor([5])
+
+# Get index 0 of 0th and 1st dimension and all values of 2nd dimension
+x[0,0,:] # tensor([1,2,3])
+
+# Up to Section 28 (PyTorch and NumPy) at 3:33:01
