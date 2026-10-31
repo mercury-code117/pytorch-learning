@@ -137,7 +137,7 @@ tensor_B = torch.tensor([[7,10],
                          [8,11],
                          [9,12]])
 
-# torch.mm(tensor_A, tensor_B) # torch.mm == torch.matmul
+# torch.mm(tensor_A, tensor_B) ### torch.mm == torch.matmul
 # The equation above will cause an error, due to both equations being 3x2, therefore not fulfilling the conditions
 # of matrix multiplication.
 
@@ -146,3 +146,35 @@ tensor_B.T # the .T will transpose and change the matrix from 3x2 to 2x3
 
 # Matrix multiplication will work now, because the inner components match, and therefore will become a 3x3 matrix.
 torch.mm(tensor_A, tensor_B.T)
+
+# Min, Max, Mean and Sum of tensors (tensor aggregation).
+aggTensor = torch.arange(0, 100, 10)
+
+torch.min(), aggTensor.min() # Finding the minimum.
+
+torch.max(), aggTensor.max() # Finding the maximum.
+
+torch.mean(aggTensor.type(torch.float32)), x.type(torch.float32).mean() # Finding the mean (Needs to be converted from a long to a float32 because torch.mean doesn't work with long data types).
+
+torch.sum(aggTensor), aggTensor.sum() # Find the sum.
+
+# Finding positional min and max
+# Find the position in the tensor that has the minimum value with argmin() -> returns index position of tensor where the minimum value is located
+aggTensor.argmin()
+# Find the position in the tensor tht has the maximum value with argmax()
+aggTensor.argmax()
+
+# Reshaping, stacking, squeezing and unsqueezing tensors.
+# Reshaping: Reshapes an input tensor to a defined shape
+# View: Return a view of an input tensor of certain shape but keep the same memory as the original tensor.
+# Stacking: Combine multiple tensors on top of each other.
+# Squeeze: Removes all '1' dimensions from a tensor.
+# Unsqueeze: Add a '1' dimension to a target tensor.
+# Permute: Return a view of the input with dimensions permuted (swapped) in a certain way.
+
+# Create a new tensor
+newTensor = torch.arange(1, 10)
+# The newTensor.shape is "torch.Size([9])"
+
+newT_reshaped = newTensor.reshape(1,7) # This will fail due to trying to put 9 elements into 7.
+newT_reshaped = newTensor.reshape(3,3) # This will work because it uses all 9 elements, but makes them into a 3x3 matrix.
